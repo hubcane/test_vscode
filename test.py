@@ -3,4 +3,4 @@ from collections import Counter, defaultdict
 
 print('hello world')
 
-print(@hello)
+print(@)
