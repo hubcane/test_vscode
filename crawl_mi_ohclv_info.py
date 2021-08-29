@@ -62,7 +62,7 @@ def convert_to_dataframe(readjson):
 
 if __name__ == "__main__":
     ## max 7 days
-    readjson = get_sise("005930.KS", "2021-08-17 00:00:00", "2021-08-24 00:00:00")
+    readjson = get_sise("005930.KS", "2021-08-23 00:00:00", "2021-08-24 00:00:00")
     return_dict = convert_to_dataframe(readjson)
 
     df = pd.DataFrame(return_dict)
