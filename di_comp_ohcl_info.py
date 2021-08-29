@@ -15,6 +15,9 @@ def get_sise(code, start_time, end_time, time_from='day') :
     } 
     get_param = parse.urlencode(get_param) 
     url="https://api.finance.naver.com/siseJson.naver?%s"%(get_param) 
+
+    print(url)
+
     response = requests.get(url)
     resp_val = literal_eval(response.text.strip())
 
