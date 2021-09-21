@@ -38,7 +38,7 @@ def get_sise(code, start_time, end_time, interval='1m') :
     resp_val = json.loads(response.text.strip())
     return resp_val
 
-def convert_to_dataframe(readjson):
+def convert_to_dict(readjson):
     timestamp = readjson['chart']['result'][0]['timestamp']
     timestamp = [convert_unixtime_datetime(t) for t in timestamp]
 
@@ -63,9 +63,9 @@ def convert_to_dataframe(readjson):
 if __name__ == "__main__":
     ## max 7 days
     readjson = get_sise("005930.KS", "2021-08-23 00:00:00", "2021-08-24 00:00:00")
-    return_dict = convert_to_dataframe(readjson)
-
+    return_dict = convert_to_dict(readjson)
     df = pd.DataFrame(return_dict)
-    print(df.head())
-    
-    # print(get_sise("005930.KS", "2021-08-23 01:01:57", "2021-08-29 01:01:57")['chart']['result'][0]['meta'])
+    print(df['timestamp'].values)
+
+    # df = pd.DataFrame(return_dict)
+    # print(df.head())

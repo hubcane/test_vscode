@@ -25,10 +25,10 @@ def get_info_market_fundamental_by_ticker(strstartdate, strenddate, tickercode):
     return df
 
 # daily trading amount
-def get_info_daily_trade_amount(strstartdate, strenddate, tickercode, on = '매수'):
+# def get_info_daily_trade_amount(strstartdate, strenddate, tickercode, on = '매수'):
     
 
 if __name__ == '__main__':
-    print(get_master_ticker_code())
-    print(get_info_market_fundamental('20210802'))
-    print(get_info_market_fundamental_by_ticker('20210801', '20210827', '005930'))
+    print(get_master_ticker_code(market = 'KONEX'))
+    # print(get_info_market_fundamental('20210802'))
+    # print(get_info_market_fundamental_by_ticker('20210801', '20210827', '005930'))

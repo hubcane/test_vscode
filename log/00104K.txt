@@ -1,0 +1,4 @@
+2021-09-21 12:09:14	table "mi_ks00104k" does not exist
+	
+2021-09-21 12:09:52	table "mi_ks00104k" does not exist
+	
