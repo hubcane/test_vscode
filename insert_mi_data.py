@@ -13,29 +13,35 @@ from dateutil.relativedelta import relativedelta
 
 
 class run():
-    def __init__(self, nowpath) -> None:
-        self.strToday = dt.datetime.strftime(dt.datetime.now(), '%Y-%m-%d %H:%M:%S')
-        self.path = nowpath
-        pass
-
-    # def __init__(self, nowpath, strstart, strend, stockcode, type) -> None:
-    #     os.chdir(nowpath)
+    # def __init__(self, nowpath) -> None:
+    #     self.strToday = dt.datetime.strftime(dt.datetime.now(), '%Y-%m-%d %H:%M:%S')
     #     self.path = nowpath
-    #     
-    #     self.connect()
-    #     if type == 1:
-    #         self.get_corplist()
-    #         self.disconnect()
-    #         return None
-    #     else: pass
-    #     self.get_results(strstart, strend, stockcode)
+    #     pass
 
-    #     try:
-    #         self.upload_bulk(stockcode)
-    #     except Exception as e:
-    #         self.write_error(str(e), stockcode + '.txt', os.path.join(self.path, 'log'))
-    #         self.upload_individually(stockcode)
-    #     self.disconnect()
+    def __init__(self, inputList) -> None:
+        nowpath = inputList[0]
+        strstart = inputList[1]
+        strend = inputList[2]
+        stockcode = inputList[3]
+        type = inputList[4]
+
+        os.chdir(nowpath)
+        self.path = nowpath        
+        self.connect()
+
+        if type == 1:
+            self.get_corplist()
+            self.disconnect()
+            return None
+        else: pass
+        self.get_results(strstart, strend, stockcode)
+
+        try:
+            self.upload_bulk(stockcode)
+        except Exception as e:
+            self.write_error(str(e), stockcode + '.txt', os.path.join(self.path, 'log'))
+            self.upload_individually(stockcode)
+        self.disconnect()
 
     def connect(self):
         fn = 'dbinfo.data'
@@ -163,6 +169,9 @@ def looprun(inputlist):
     except Exception as e:
         pass
     return None
+
+def strdate(dtdate, fwt = '%Y-%m-%d %H:%M:%S'):
+    return dt.datetime.strftime(dtdate, fwt)
         
 
 def main(standDate, extra = 1): # standDate: string Datetime format %Y-%m-%d %H:%M:%S
@@ -177,17 +186,19 @@ def main(standDate, extra = 1): # standDate: string Datetime format %Y-%m-%d %H:
 
     try:
         # 1. get Corplist
-        r = run(nowpath)
+        r = run((nowpath, 'none', 'none', 'none', 1))
         r.connect()
         r.get_corplist()
         corplist = r.results
-        r.disconnect()
+        r.disconnect()  
 
-        inputList = [(nowpath, enddate, startdate, corp_code, strToday) for corp_code in corplist]
+        # inputList = [(nowpath, enddate, startdate, corp_code, strToday) for corp_code in corplist]
+        inputList = [(nowpath, startdate, enddate, corp_code, 2) for corp_code in corplist]
+
 
         #2. main loop
         with concurrent.futures.ProcessPoolExecutor(max_workers=4) as executor:
-            executor.map(looprun, inputList)
+            executor.map(run, inputList)
 
     except Exception as e:
         os.chdir(logpath)
@@ -196,4 +207,5 @@ def main(standDate, extra = 1): # standDate: string Datetime format %Y-%m-%d %H:
             rf.write(sentence)
 
 if __name__ == "__main__":
-    main('2021-09-15 09:00:00', extra = 5)
+    standtime = dt.datetime.strftime(dt.datetime.now(), '%Y-%m-%d %H:%M:%S')
+    main(standtime, extra = 2)

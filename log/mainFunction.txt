@@ -1,0 +1,17 @@
+2021-12-30 14:22:17	__init__() missing 4 required positional arguments: 'strstart', 'strend', 'stockcode', and 'type'	
+2021-12-30 14:28:42	__init__() missing 4 required positional arguments: 'strstart', 'strend', 'stockcode', and 'type'	
+2021-12-30 14:30:19	__init__() missing 4 required positional arguments: 'strstart', 'strend', 'stockcode', and 'type'	
+2021-12-30 14:30:35	__init__() missing 4 required positional arguments: 'strstart', 'strend', 'stockcode', and 'type'	
+2021-12-30 14:31:08	__init__() missing 4 required positional arguments: 'strstart', 'strend', 'stockcode', and 'type'	
+2021-12-31 04:22:43	__init__() missing 4 required positional arguments: 'strstart', 'strend', 'stockcode', and 'type'	
+2021-12-31 04:24:01	too many values to unpack (expected 5)	
+2021-12-31 04:24:20	too many values to unpack (expected 5)	
+2021-12-31 04:25:06	too many values to unpack (expected 5)	
+2021-12-31 04:25:14	too many values to unpack (expected 5)	
+2021-12-31 04:26:29	[Errno 2] No such file or directory: 'dbinfo.data'	
+2021-12-31 04:27:24	[Errno 2] No such file or directory: 'dbinfo.data'	
+2021-12-31 04:27:34	[Errno 2] No such file or directory: 'dbinfo.data'	
+2021-12-31 04:27:58	[Errno 2] No such file or directory: 'dbinfo.data'	
+2021-12-31 04:28:07	[Errno 2] No such file or directory: 'dbinfo.data'	
+2021-12-31 04:28:37	[Errno 2] No such file or directory: 'dbinfo.data'	
+2021-12-31 04:29:23	[Errno 2] No such file or directory: 'dbinfo.data'	

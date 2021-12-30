@@ -1,7 +1,0 @@
-2021-09-22 17:52:41	039830	2021-09-10 09:00:00	2021-09-15 09:00:00	039830	can't adapt type 'numpy.int64'	
-2021-09-22 19:48:28	duplicate key value violates unique constraint "mi_ks039830_pkey"
-DETAIL:  Key (keytime)=(2021-09-13 22:30:00) already exists.
-	update mi_ks039830 set open = 10200.0, close = 10050.0, high = 10400.0, volume = 85368, chg_dt = '2021-09-22 19:48:28' where keytime = '2021-09-13 22:30:00';	
-2021-09-22 19:48:28	duplicate key value violates unique constraint "mi_ks039830_pkey"
-DETAIL:  Key (keytime)=(2021-09-14 22:30:00) already exists.
-	update mi_ks039830 set open = 10150.0, close = 10350.0, high = 10400.0, volume = 55703, chg_dt = '2021-09-22 19:48:28' where keytime = '2021-09-14 22:30:00';	

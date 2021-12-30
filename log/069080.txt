@@ -1,7 +1,0 @@
-2021-09-22 17:52:41	069080	2021-09-10 09:00:00	2021-09-15 09:00:00	069080	can't adapt type 'numpy.int64'	
-2021-09-22 19:48:30	duplicate key value violates unique constraint "mi_ks069080_pkey"
-DETAIL:  Key (keytime)=(2021-09-13 22:30:00) already exists.
-	update mi_ks069080 set open = 29600.0, close = 28150.0, high = 29900.0, volume = 739358, chg_dt = '2021-09-22 19:48:29' where keytime = '2021-09-13 22:30:00';	
-2021-09-22 19:48:30	duplicate key value violates unique constraint "mi_ks069080_pkey"
-DETAIL:  Key (keytime)=(2021-09-14 22:30:00) already exists.
-	update mi_ks069080 set open = 30700.0, close = 29000.0, high = 31100.0, volume = 1637723, chg_dt = '2021-09-22 19:48:29' where keytime = '2021-09-14 22:30:00';	
