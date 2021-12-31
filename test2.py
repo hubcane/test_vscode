@@ -1,3 +1,9 @@
-import datetime as dt 
+import os
+import _pickle as pickle
+import gzip 
 
-print()
+fp = gzip.open('dbinfo.data', 'r')
+fn = pickle.load(fp)
+fp.close()
+
+print(fn)

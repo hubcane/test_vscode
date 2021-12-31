@@ -25,6 +25,8 @@ class run():
         stockcode = inputList[3]
         type = inputList[4]
 
+        self.strToday = strend
+
         os.chdir(nowpath)
         self.path = nowpath        
         self.connect()
@@ -34,6 +36,7 @@ class run():
             self.disconnect()
             return None
         else: pass
+
         self.get_results(strstart, strend, stockcode)
 
         try:
@@ -69,7 +72,7 @@ class run():
         return None
 
     def get_corplist(self):
-        sql = 'select corp_code from ms_corp_code where is_yahoo = true;'
+        sql = 'select corp_code from ms_corp_code where is_yahoo is true;'
         self.curs.execute(sql)
         results = self.curs.fetchall()
         self.results = [r[0] for r in results]
@@ -88,6 +91,7 @@ class run():
     def get_results(self, strstartime, strendtime, stockcode):
         stockcode = stockcode + '.KS'
         readjson = get_sise(stockcode, strstartime, strendtime)
+
         return_dict = convert_to_dict(readjson)
         df = pd.DataFrame(return_dict)
         df['day'] = df['timestamp'].apply(lambda x: self.calculateDay(x))
@@ -130,6 +134,9 @@ class run():
 
             sql1 = f'update mi_ks{stockcode} set open = {open}, close = {close}, high = {high}, volume = {volume}, chg_dt = {chg_dt} where keytime = {keytime};'
             sql2 = f'insert into mi_ks{stockcode} (keytime, day, open, close, high, low, volume, create_dt, chg_dt) values ({keytime}, {day}, {open}, {close}, {high}, {low}, {volume}, {create_dt}, {chg_dt});'
+
+            print(sql1)
+            print(sql2)
 
             try:
                 self.curs.execute(sql1)
@@ -181,8 +188,12 @@ def main(standDate, extra = 1): # standDate: string Datetime format %Y-%m-%d %H:
     strToday = dt.datetime.strftime(dt.datetime.now(), '%Y-%m-%d %H:%M:%S')
 
     startdate = standDate
-    dtendDate = dt.datetime.strptime(startdate, '%Y-%m-%d %H:%M:%S') - relativedelta(days = extra)
-    enddate = dt.datetime.strftime(dtendDate, '%Y-%m-%d %H:%M:%S')
+    # dtendDate = dt.datetime.strptime(startdate, '%Y-%m-%d %H:%M:%S') - relativedelta(days = extra)
+    dtstartDate = dt.datetime.strptime(startdate, '%Y-%m-%d %H:%M:%S') - relativedelta(days = extra)
+    # enddate = dt.datetime.strftime(dtendDate, '%Y-%m-%d %H:%M:%S')
+
+    enddate = standDate
+    startdate = dt.datetime.strftime(dtstartDate, '%Y-%m-%d %H:%M:%S')
 
     try:
         # 1. get Corplist
@@ -192,9 +203,15 @@ def main(standDate, extra = 1): # standDate: string Datetime format %Y-%m-%d %H:
         corplist = r.results
         r.disconnect()  
 
+
+
+
+        corplist = ['208140']
+
+
+
         # inputList = [(nowpath, enddate, startdate, corp_code, strToday) for corp_code in corplist]
         inputList = [(nowpath, startdate, enddate, corp_code, 2) for corp_code in corplist]
-
 
         #2. main loop
         with concurrent.futures.ProcessPoolExecutor(max_workers=4) as executor:
@@ -208,4 +225,4 @@ def main(standDate, extra = 1): # standDate: string Datetime format %Y-%m-%d %H:
 
 if __name__ == "__main__":
     standtime = dt.datetime.strftime(dt.datetime.now(), '%Y-%m-%d %H:%M:%S')
-    main(standtime, extra = 2)
+    main(standtime, extra = 5)

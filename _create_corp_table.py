@@ -55,21 +55,21 @@ class run():
         return None
 
     def get_corplist(self):
-        # sql = 'select corp_code from ms_corp_code;'
-        sql = "select right(relname,6), n_live_tup FROM pg_stat_user_tables where pg_stat_user_tables.schemaname = 'public' and pg_stat_user_tables.n_live_tup = 0;"
+        sql = 'select corp_code from ms_corp_code where is_yahoo is true;'
+        # sql = "select right(relname,6), n_live_tup FROM pg_stat_user_tables where pg_stat_user_tables.schemaname = 'public' and pg_stat_user_tables.n_live_tup = 0;"
         self.curs.execute(sql)
         results = self.curs.fetchall()
         self.results = [r[0] for r in results]
         return None
 
     def create_table(self, corp_code):
-        try:
-            sql = f'drop table mi_ks{corp_code};'
-            print(sql)
-            self.curs.execute(sql)
-            self.conn.commit()
-        except Exception as e:
-            self.write_error(e, corp_code + '.txt', path = os.path.join(self.nowpath, 'log'))
+        # try:
+        #     sql = f'drop table mi_ks{corp_code};'
+        #     print(sql)
+        #     self.curs.execute(sql)
+        #     self.conn.commit()
+        # except Exception as e:
+        #     self.write_error(e, corp_code + '.txt', path = os.path.join(self.nowpath, 'log'))
 
         # try:
         #     sql = f'truncate table mi_ks{corp_code};'
@@ -78,12 +78,12 @@ class run():
         # except Exception as e:
         #     self.write_error(e, corp_code + '.txt', path = os.path.join(self.nowpath, 'log'))
 
-        # try:
-        #     sql = f'create table mi_ks{corp_code} (keytime timestamp, day varchar(4),open float, close float, high float, low float, volume int, create_dt timestamp, chg_dt timestamp, primary key (keytime));'
-        #     self.curs.execute(sql)
-        #     self.conn.commit()
-        # except Exception as e:
-        #     self.write_error(e, corp_code + '.txt', path = os.path.join(self.nowpath, 'log'))
+        try:
+            sql = f'create table mi_ks{corp_code} (keytime timestamp, day varchar(4),open float, close float, high float, low float, volume int, create_dt timestamp, chg_dt timestamp, primary key (keytime));'
+            self.curs.execute(sql)
+            self.conn.commit()
+        except Exception as e:
+            self.write_error(e, corp_code + '.txt', path = os.path.join(self.nowpath, 'log'))
 
 
 

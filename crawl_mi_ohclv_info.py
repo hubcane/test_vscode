@@ -62,7 +62,7 @@ def convert_to_dict(readjson):
 
 if __name__ == "__main__":
     ## max 7 days
-    readjson = get_sise("005930.KS", "2021-12-23 00:00:00", "2021-12-24 00:00:00")
+    readjson = get_sise("000990.KS", "2021-12-23 00:00:00", "2021-12-24 00:00:00")
     return_dict = convert_to_dict(readjson)
     df = pd.DataFrame(return_dict)
-    print(df.head())
+    df.to_csv('000090_error.csv', sep = '\t')

@@ -1,0 +1,1 @@
+2021-12-31 14:38:02	can't adapt type 'numpy.int64'	
